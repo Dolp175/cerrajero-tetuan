@@ -1,6 +1,10 @@
 ---
+import Layout from "../../layouts/Layout.astro";
+
 export async function getStaticPaths() {
-  const allPosts = import.meta.glob('../../posts/*.md', { eager: true });
+  // Load every markdown file inside `/src/pages/posts` eagerly so we can
+  // read its frontmatter at build time.
+  const allPosts = import.meta.glob('../posts/*.md', { eager: true });
 
   return Object.values(allPosts).map((post) => ({
     params: { slug: post.frontmatter.slug },
@@ -10,20 +14,28 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { frontmatter, default: Content } = post;
+
+const title = `${frontmatter.title} | Blog Cerrajero Tetuán`;
+const description = frontmatter.description;
+const canonicalUrl = `https://cerrajero-tetuan.com/blog/${frontmatter.slug}`;
+const imageUrl = frontmatter.image;
 ---
 
-<article>
-  <h1>{frontmatter.title}</h1>
-  <p><em>{frontmatter.date}</em></p>
+<Layout {title} {description} {canonicalUrl} imageUrl={imageUrl}>
+  <article class="prose mx-auto px-4 py-8 max-w-3xl">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4">{frontmatter.title}</h1>
+    <p class="text-sm text-gray-500 mb-6">{frontmatter.date}</p>
 
-  {frontmatter.image && (
-    <img 
-      src={frontmatter.image} 
-      alt={`Imagen destacada de ${frontmatter.title}`} 
-      style="max-width: 100%; height: auto; margin-bottom: 1rem;"
-    />
-  )}
+    {frontmatter.image && (
+      <img
+        src={frontmatter.image}
+        alt={`Imagen destacada de ${frontmatter.title}`}
+        class="w-full h-auto rounded-lg mb-6"
+        loading="lazy"
+      />
+    )}
 
-  <Content />
-</article>
+    <Content />
+  </article>
+</Layout>
 
