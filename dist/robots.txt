@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /gracias  
-Sitemap: https://cerrajero-tetuan.com/sitemap-index.xml
