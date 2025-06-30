@@ -1,25 +1,44 @@
 ---
-const allPostFiles = import.meta.glob('../../posts/*.md', { eager: true });
+import Layout from "../../layouts/Layout.astro";
 
-const posts = Object.values(allPostFiles).map((post) => ({
-  url: `/blog/${post.frontmatter.slug}/`,
-  ...post.frontmatter,
-  Content: post.default,
-}));
+const title = "Blog de Cerrajero Tetuán";
+const description = "Consejos y novedades de cerrajería en Madrid";
+const canonicalUrl = "https://cerrajero-tetuan.com/blog";
+
+// Import all markdown posts from `/src/pages/posts` eagerly at build time.
+const allPostFiles = import.meta.glob('../posts/*.md', { eager: true });
+
+const posts = Object.values(allPostFiles)
+  .map((post) => ({
+    url: `/blog/${post.frontmatter.slug}/`,
+    ...post.frontmatter,
+    Content: post.default,
+  }))
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 ---
 
-<h1>Blog</h1>
-<ul>
-  {posts.map(post => (
-    <li>
-      <a href={post.url}>
-        <img src={post.image} alt={`Miniatura de ${post.title}`} width="300" />
-        <strong>{post.title}</strong><br />
-        <small>{post.date}</small><br />
-        <p>{post.description}</p>
-      </a>
-    </li>
-  ))}
-</ul>
-
+<Layout {title} {description} {canonicalUrl}>
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold text-center mb-8">Blog</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {posts.map((post) => (
+          <article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
+            <a href={post.url} class="block">
+              <img
+                src={post.image}
+                alt={`Imagen de ${post.title}`}
+                class="w-full h-auto rounded-md mb-4"
+                loading="lazy"
+              />
+              <h2 class="text-xl font-semibold mb-2">{post.title}</h2>
+              <p class="text-sm text-gray-500 mb-2">{post.date}</p>
+              <p>{post.description}</p>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
 
