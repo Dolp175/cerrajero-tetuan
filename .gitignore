@@ -1,0 +1,12 @@
+# Carpetas que no deben subirse
+node_modules/
+dist/
+.astro/
+.vite/
+
+# Archivos de sistema y de caché
+.DS_Store
+*.log
+
+# Otros
+*.zip

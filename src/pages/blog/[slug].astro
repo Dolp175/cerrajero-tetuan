@@ -1,0 +1,29 @@
+---
+export async function getStaticPaths() {
+  const allPosts = import.meta.glob('../../posts/*.md', { eager: true });
+
+  return Object.values(allPosts).map((post) => ({
+    params: { slug: post.frontmatter.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { frontmatter, default: Content } = post;
+---
+
+<article>
+  <h1>{frontmatter.title}</h1>
+  <p><em>{frontmatter.date}</em></p>
+
+  {frontmatter.image && (
+    <img 
+      src={frontmatter.image} 
+      alt={`Imagen destacada de ${frontmatter.title}`} 
+      style="max-width: 100%; height: auto; margin-bottom: 1rem;"
+    />
+  )}
+
+  <Content />
+</article>
+
