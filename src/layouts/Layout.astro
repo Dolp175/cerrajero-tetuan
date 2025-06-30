@@ -1,0 +1,316 @@
+---
+// Props (sin necesidad de interface)
+const { 
+  title, 
+  description, 
+  canonicalUrl, 
+  imageUrl = "/images/default-social.webp" 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <!-- Meta básicos -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Cerrajero Profesional en Tetuán</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph / Facebook, WhatsApp, LinkedIn -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:locale" content="es_ES" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageUrl} />
+
+  <!-- Favicon -->
+<!-- Favicon estándar (ICO - máxima compatibilidad) -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="32x32">
+
+<!-- Favicon HD (PNG 96x96 - pantallas retina) -->
+<link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
+
+<script type="application/ld+json">
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Cerrajero Tetuán",
+    "image": "/images/logo-cerrajero-tetuan.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calle Cactus, 26",
+      "addressLocality": "Madrid",
+      "postalCode": "28039",
+      "addressRegion": "Madrid",
+      "addressCountry": "ES"
+    },
+    "telephone": "+34611754389",
+    "openingHours": "Mo-Su 07:00-23:59",
+    "priceRange": "€",
+    "url": canonicalUrl,
+    "serviceArea": {
+      "@type": "AdministrativeArea",
+      "name": "Tetuán, Madrid"
+    }
+  })}
+</script>
+
+
+<link rel="preload" href="/images/logo-cerrajero-tetuan.webp" as="image">
+</head>
+
+  <body class="font-sans bg-gray-50 text-gray-800">
+    <style>
+    details[open] #open-icon {
+      display: none;
+    }
+    details[open] #close-icon {
+      display: block;
+    }
+  </style>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-3">
+        <!-- Contenedor flex para logo + botones -->
+        <div class="flex justify-between items-center">
+          <!-- Logo optimizado para SEO -->
+          <a
+            href="/"
+            class="flex items-center gap-2"
+            aria-label="Cerrajero en Tetuán"
+          >
+            <img
+              src="/images/logo-cerrajero-tetuan.webp"
+              alt="Cerrajero Tetuán"
+              width="40"
+              height="40"
+              class="h-10 w-auto"
+              loading="lazy"
+            />
+            <span class="text-xl font-bold text-gray-800">
+              Cerrajero<span class="text-amber-600">Tetuán</span>
+            </span>
+          </a>
+
+          <!-- Botón CTA (visible solo en desktop) -->
+          <a
+            href="tel:+34611754389"
+            class="hidden md:flex bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-full transition"
+          >
+            Llamar ahora
+          </a>
+
+          <!-- Botón hamburguesa (solo móvil) -->
+          <details class="md:hidden relative">
+            <summary class="cursor-pointer p-2 list-none">
+              <!-- Ícono hamburguesa (se transforma en X) -->
+              <svg
+                class="w-6 h-6 text-gray-800"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  id="open-icon"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"></path>
+                <path
+                  id="close-icon"
+                  class="hidden"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              <span class="sr-only">Menú de navegación</span>
+            </summary>
+
+            <!-- Menú móvil (aparece al hacer clic) -->
+            <div
+              class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-md z-50"
+            >
+              <nav class="flex flex-col p-2">
+                <a
+                  href="/"
+                  class="px-4 py-3 hover:bg-amber-50 font-medium rounded"
+                  >Inicio</a
+                >
+                <a
+                  href="/aperturas-tetuan"
+                  class="px-4 py-3 hover:bg-amber-50 font-medium rounded"
+                  >Aperturas</a
+                >
+                <a
+                  href="/urgencias"
+                  class="px-4 py-3 hover:bg-amber-50 font-medium rounded"
+                  >Urgencias</a
+                >
+                <a
+                  href="/cambio-cerraduras"
+                  class="px-4 py-3 hover:bg-amber-50 font-medium rounded"
+                  >Cambios de cerradura</a
+                >
+                <a
+                  href="/contacto"
+                  class="px-4 py-3 hover:bg-amber-50 font-medium rounded"
+                  >Contacto</a
+                >
+                <!-- CTA móvil -->
+                <a
+                  href="tel:+34611754389"
+                  class="mt-2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-full text-center"
+                >
+                  Llamar ahora
+                </a>
+              </nav>
+            </div>
+          </details>
+        </div>
+
+        <!-- Menú desktop (oculto en móvil) -->
+        <nav class="hidden md:flex justify-center gap-8 mt-4 md:mt-0">
+          <a
+            href="/"
+            class="font-medium hover:text-amber-600 px-2 py-1 border-b-2 border-transparent hover:border-amber-600"
+            >Inicio</a
+          >
+          <a
+            href="/aperturas-tetuan"
+            class="font-medium hover:text-amber-600 px-2 py-1 border-b-2 border-transparent hover:border-amber-600"
+            >Aperturas</a
+          >
+          <a
+            href="/urgencias"
+            class="font-medium hover:text-amber-600 px-2 py-1 border-b-2 border-transparent hover:border-amber-600"
+            >Urgencias</a
+          >
+          <a
+            href="/cambio-cerraduras"
+            class="font-medium hover:text-amber-600 px-2 py-1 border-b-2 border-transparent hover:border-amber-600"
+            >Cambios de cerradura</a
+          >
+          <a
+            href="/contacto"
+            class="font-medium hover:text-amber-600 px-2 py-1 border-b-2 border-transparent hover:border-amber-600"
+            >Contacto</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <slot />
+    </main>
+<footer class="bg-gray-800 text-white py-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Columna 1: Logo + horario -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img
+            src="/images/logo-cerrajero-tetuan.webp"
+            alt="Logo Cerrajero Tetuán"
+            width="40"
+            height="40"
+            class="h-20 w-auto"
+          />
+          <span class="text-xl font-bold text-white">
+            Cerrajero<span class="text-amber-600">Tetuán</span>
+          </span>
+        </div>
+        <p class="mb-2">🕒 <strong>Horario: de 7:00 a 00:00</strong></p>
+        <ul class="space-y-1 text-sm text-gray-300">
+          <li>
+            <a href="/legal/aviso-legal" class="hover:text-amber-400"
+              >Aviso legal</a
+            >
+          </li>
+          <li>
+            <a href="/legal/politica-privacidad" class="hover:text-amber-400"
+              >Política de privacidad</a
+            >
+          </li>
+          <li>
+            <a href="/legal/politica-cookies" class="hover:text-amber-400"
+              >Política de cookies</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 2: Servicios -->
+      <div>
+        <h3 class="text-lg font-bold mb-4 text-amber-400">Servicios</h3>
+        <ul class="space-y-2">
+          <li><a href="/" class="hover:text-amber-400">Inicio</a></li>
+          <li>
+            <a href="/aperturas-tetuan" class="hover:text-amber-400"
+              >Aperturas</a>
+          </li>
+          <li>
+            <a href="/urgencias" class="hover:text-amber-400"
+              >Urgencias 24h</a>
+          </li>
+          <li>
+            <a href="/cambio-cerraduras" class="hover:text-amber-400"
+              >Cambios de cerradura</a>
+          </li>
+          <li>
+            <a href="/contacto" class="hover:text-amber-400">Contacto</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto -->
+      <div>
+        <h3 class="text-lg font-bold mb-4 text-amber-400">Contacto</h3>
+        <address class="not-italic space-y-2">
+          <p>📍 Calle Cactus, 26<br />28039 Madrid</p>
+          <p>
+            📞 <a href="tel:+34611754389" class="hover:text-amber-400"
+              >611 754 389</a
+            >
+          </p>
+          <p>
+            💬
+            <a
+              href="https://wa.me/34611754389"
+              target="_blank"
+              class="hover:text-amber-400"
+              >WhatsApp directo</a
+            >
+          </p>
+          <p>
+            ✉️ <a href="/contacto" class="hover:text-amber-400">Mensaje</a>
+          </p>
+        </address>
+      </div>
+    </div>
+
+    <!-- Línea inferior -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+      <p>
+        © 2025 Cerrajero Profesional en Tetuán. Todos los derechos
+        reservados.
+      </p>
+      <p class="mt-2 text-gray-400">
+        Servicio de cerrajería rápida y cercana en <strong>Tetuán, Madrid</strong> |
+        <a href="/sitemap-index.xml" class="hover:text-amber-400"
+          >Mapa del sitio</a
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// Meta tags Únicos para esta página
+const title = "Política de Privacidad | Cerrajero Tetuán";
+const description = "Consulta nuestra política de privacidad para entender cómo tratamos los datos personales facilitados a través del formulario de contacto.";
+const canonicalUrl = "https://cerrajero-tetuan.com/legal/politicaprivacidad";
+const imageUrl = "/images/logo-cerrajero-tetuan.webp";
+---
+
+<Layout 
+  {title}
+  {description}
+  {canonicalUrl}
+  {imageUrl}
+>
+  <h1 class="text-3xl font-bold mb-6 text-amber-600">Política de Privacidad</h1>
+
+  <p class="mb-4">
+    En cumplimiento de lo dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo (RGPD), se informa al usuario sobre el tratamiento de los datos personales que pueda facilitar mediante el formulario de contacto.
+  </p>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Responsable del tratamiento</h2>
+  <ul class="list-disc list-inside mb-6 space-y-2">
+    <li><strong>Nombre:</strong> Patrick Martínez Joyeux</li>
+    <li><strong>NIF:</strong> 48526621W</li>
+    <li><strong>Dirección:</strong> Calle Cactus, 26 – 28039 Madrid</li>
+    <li><strong>Teléfono:</strong> <a href="tel:+34611754389" class="text-amber-600 hover:underline">611 754 389</a></li>
+    <li><strong>Email:</strong> <a href="mailto:info@tucerrajerolocal.com" class="text-amber-600 hover:underline">info@tucerrajerolocal.com</a></li>
+  </ul>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Finalidad del tratamiento</h2>
+  <p class="mb-4">
+    Los datos facilitados por el usuario a través del formulario de contacto se utilizarán únicamente para responder a la consulta o solicitud planteada. No se utilizan con fines comerciales ni se almacenan en bases de datos.
+  </p>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Legitimación</h2>
+  <p class="mb-4">
+    La base legal para el tratamiento de los datos es el consentimiento expreso del usuario al enviar el formulario.
+  </p>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Conservación de los datos</h2>
+  <p class="mb-4">
+    Los datos no se almacenan de forma permanente ni se incorporan a ficheros automatizados. Se eliminan una vez atendida la solicitud.
+  </p>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Destinatarios</h2>
+  <p class="mb-4">
+    No se ceden datos a terceros, salvo obligación legal.
+  </p>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Derechos del usuario</h2>
+  <p class="mb-4">
+    El usuario puede ejercer sus derechos de acceso, rectificación, supresión, oposición y limitación enviando una solicitud al email indicado arriba.
+  </p>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Contacto</h2>
+  <p>
+    Para cualquier duda relacionada con esta política de privacidad, puede contactar con el responsable a través del correo <a href="mailto:info@tucerrajerolocal.com" class="text-amber-600 hover:underline">info@tucerrajerolocal.com</a>.
+  </p>
+  
+  <p class="mt-6">Última actualización: junio de 2025.</p>
+</Layout>
