@@ -1,8 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
-const title = "Blog de Cerrajero Tetuán";
-const description = "Consejos y novedades de cerrajería en Madrid";
+const title = "Blog de Cerrajero Tetuán | Consejos profesionales";
+const description = "Artículos y guías sobre cerrajería, seguridad y mantenimiento en Madrid";
 const canonicalUrl = "https://cerrajero-tetuan.com/blog";
 
 // Importar todos los posts en tiempo de build
@@ -19,45 +19,77 @@ const posts = Object.values(allPostFiles)
 // Paginación
 const pageSize = 3;
 const totalPages = Math.ceil(posts.length / pageSize);
-const pagePosts = posts.slice(0, pageSize); // solo la primera página (puedes adaptar esto según la ruta dinámica en el futuro)
+const pagePosts = posts.slice(0, pageSize);
 ---
 
 <Layout {title} {description} {canonicalUrl}>
-  <section class="py-12">
+  <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
-      <h1 class="text-3xl font-bold text-center mb-8">Blog</h1>
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+          Blog de <span class="text-amber-600">Cerrajería</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Consejos profesionales, novedades y guías prácticas sobre seguridad en el hogar
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {pagePosts.map((post) => (
-          <article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
-            <a href={post.url} class="block">
-              <img
-                src={post.image}
-                alt={`Imagen de ${post.title}`}
-                class="w-full h-auto rounded-md mb-4"
-                loading="lazy"
-              />
-              <h2 class="text-xl font-semibold mb-2">{post.title}</h2>
-              <p class="text-sm text-gray-500 mb-2">{post.date}</p>
-              <p>{post.description}</p>
+          <article class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+            <a href={post.url} class="block h-full">
+              <div class="overflow-hidden h-48">
+                <img
+                  src={post.image}
+                  alt={`Imagen de ${post.title}`}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-2 text-sm text-amber-600 mb-2">
+                  <span>📅</span>
+                  <time datetime={new Date(post.date).toISOString()}>
+                    {new Date(post.date).toLocaleDateString('es-ES', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                </div>
+                <h2 class="text-xl font-bold mb-3 text-gray-800 group-hover:text-amber-600 transition-colors">
+                  {post.title}
+                </h2>
+                <p class="text-gray-600 mb-4 line-clamp-2">{post.description}</p>
+                <span class="inline-flex items-center text-amber-600 font-medium group-hover:underline">
+                  Leer artículo
+                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              </div>
             </a>
           </article>
         ))}
       </div>
 
       <!-- Navegación por páginas -->
-      <nav class="flex justify-center gap-2 mt-8">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <a
-            href={i === 0 ? '/blog/' : `/blog/page/${i + 1}/`}
-            class={`px-3 py-1 rounded ${
-              i === 0 ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            {i + 1}
-          </a>
-        ))}
-      </nav>
+      {totalPages > 1 && (
+        <nav class="flex justify-center gap-2 mt-12">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <a
+              href={i === 0 ? '/blog/' : `/blog/page/${i + 1}`}
+              class={`px-4 py-2 text-sm font-medium rounded ${
+                i === 0
+                  ? 'bg-amber-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {i + 1}
+            </a>
+          ))}
+        </nav>
+      )}
     </div>
   </section>
 </Layout>

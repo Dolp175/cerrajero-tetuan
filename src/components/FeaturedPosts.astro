@@ -11,24 +11,52 @@ const posts = Object.values(allPostFiles)
   .slice(0, 3);
 ---
 
-<section class="py-12">
-  <h2 class="text-3xl font-bold text-center mb-8">Artículos de interés</h2>
-  <div class="grid gap-6 md:grid-cols-3">
-    {posts.map((post) => (
-      <article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
-        <a href={post.url} class="block">
-          {post.image && (
-            <img
-              src={post.image}
-              alt={`Imagen de ${post.title}`}
-              class="w-full h-auto rounded-md mb-3"
-              loading="lazy"
-            />
-          )}
-          <h3 class="text-lg font-semibold mb-2">{post.title}</h3>
-          {post.summary && <p class="text-sm text-gray-700">{post.summary}</p>}
-        </a>
-      </article>
-    ))}
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">
+      Artículos de <span class="text-amber-600">interés</span>
+    </h2>
+    <div class="grid gap-8 md:grid-cols-3">
+      {posts.map((post) => (
+        <article class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+          <a href={post.url} class="block h-full">
+            {post.image && (
+              <div class="overflow-hidden h-48">
+                <img
+                  src={post.image}
+                  alt={`Imagen de ${post.title}`}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-sm text-amber-600 mb-2">
+                <span>📅</span>
+                <time datetime={new Date(post.date).toISOString()}>
+                  {new Date(post.date).toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </time>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-800 group-hover:text-amber-600 transition-colors">
+                {post.title}
+              </h3>
+              {post.summary && (
+                <p class="text-gray-600 mb-4 line-clamp-2">{post.summary}</p>
+              )}
+              <span class="inline-flex items-center text-amber-600 font-medium group-hover:underline">
+                Leer más
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
