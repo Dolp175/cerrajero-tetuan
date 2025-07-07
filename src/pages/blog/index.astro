@@ -5,7 +5,7 @@ const title = "Blog de Cerrajero Tetuán";
 const description = "Consejos y novedades de cerrajería en Madrid";
 const canonicalUrl = "https://cerrajero-tetuan.com/blog";
 
-// Import all markdown posts from `/src/pages/posts` eagerly at build time.
+// Importar todos los posts en tiempo de build
 const allPostFiles = import.meta.glob('../posts/*.md', { eager: true });
 
 const posts = Object.values(allPostFiles)
@@ -15,14 +15,20 @@ const posts = Object.values(allPostFiles)
     Content: post.default,
   }))
   .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// Paginación
+const pageSize = 3;
+const totalPages = Math.ceil(posts.length / pageSize);
+const pagePosts = posts.slice(0, pageSize); // solo la primera página (puedes adaptar esto según la ruta dinámica en el futuro)
 ---
 
 <Layout {title} {description} {canonicalUrl}>
   <section class="py-12">
     <div class="container mx-auto px-4">
       <h1 class="text-3xl font-bold text-center mb-8">Blog</h1>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {posts.map((post) => (
+        {pagePosts.map((post) => (
           <article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
             <a href={post.url} class="block">
               <img
@@ -38,7 +44,22 @@ const posts = Object.values(allPostFiles)
           </article>
         ))}
       </div>
+
+      <!-- Navegación por páginas -->
+      <nav class="flex justify-center gap-2 mt-8">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <a
+            href={i === 0 ? '/blog/' : `/blog/page/${i + 1}/`}
+            class={`px-3 py-1 rounded ${
+              i === 0 ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }`}
+          >
+            {i + 1}
+          </a>
+        ))}
+      </nav>
     </div>
   </section>
 </Layout>
+
 

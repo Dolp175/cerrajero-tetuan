@@ -10,4 +10,3 @@ image: "/images/posts/prueba.webp"
 # ¡Tercer intento!
 
 Seguimos adelante con el contenido del **tercer post**. Todo marcha bien.
-

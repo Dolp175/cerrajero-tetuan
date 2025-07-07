@@ -1,0 +1,72 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const allPostFiles = import.meta.glob('../../posts/*.md', { eager: true });
+
+  const posts = Object.values(allPostFiles)
+    .map((post) => ({
+      url: `/blog/${post.frontmatter.slug}/`,
+      ...post.frontmatter,
+      Content: post.default,
+    }))
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const pageSize = 3;
+  const totalPages = Math.ceil(posts.length / pageSize);
+
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: {
+      posts: posts.slice(i * pageSize, (i + 1) * pageSize),
+      currentPage: i + 1,
+      totalPages,
+    },
+  }));
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+
+const title = "Blog de Cerrajero Tetuán";
+const description = "Consejos y novedades de cerrajería en Madrid";
+const canonicalUrl = `https://cerrajero-tetuan.com/blog/page/${currentPage}`;
+---
+
+<Layout {title} {description} {canonicalUrl}>
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold text-center mb-8">Blog</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {posts.map((post) => (
+          <article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
+            <a href={post.url} class="block">
+              <img
+                src={post.image}
+                alt={`Imagen de ${post.title}`}
+                class="w-full h-auto rounded-md mb-4"
+                loading="lazy"
+              />
+              <h2 class="text-xl font-semibold mb-2">{post.title}</h2>
+              <p class="text-sm text-gray-500 mb-2">{post.date}</p>
+              <p>{post.description}</p>
+            </a>
+          </article>
+        ))}
+      </div>
+      {totalPages > 1 && (
+        <nav class="mt-8 flex justify-center gap-2">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <a
+              href={i === 0 ? '/blog/' : `/blog/page/${i + 1}/`}
+              class={
+                `px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`
+              }
+            >
+              {i + 1}
+            </a>
+          ))}
+        </nav>
+      )}
+    </div>
+  </section>
+</Layout>
