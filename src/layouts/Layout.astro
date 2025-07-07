@@ -1,11 +1,34 @@
 ---
 // Props (sin necesidad de interface)
-const { 
-  title, 
-  description, 
-  canonicalUrl, 
-  imageUrl = "/images/default-social.webp" 
+const {
+  title,
+  description,
+  canonicalUrl,
+  imageUrl = "/images/default-social.webp"
 } = Astro.props;
+
+const schemaData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Cerrajero Tetuán",
+  image: "/images/logo-cerrajero-tetuan.webp",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Calle Cactus, 26",
+    addressLocality: "Madrid",
+    postalCode: "28039",
+    addressRegion: "Madrid",
+    addressCountry: "ES",
+  },
+  telephone: "+34611754389",
+  openingHours: "Mo-Su 07:00-23:59",
+  priceRange: "€",
+  url: canonicalUrl,
+  serviceArea: {
+    "@type": "AdministrativeArea",
+    name: "Tetuán, Madrid",
+  },
+});
 ---
 
 <!doctype html>
@@ -39,30 +62,7 @@ const {
 <!-- Favicon HD (PNG 96x96 - pantallas retina) -->
 <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
 
-<script type="application/ld+json">
-  {JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Cerrajero Tetuán",
-    "image": "/images/logo-cerrajero-tetuan.webp",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Calle Cactus, 26",
-      "addressLocality": "Madrid",
-      "postalCode": "28039",
-      "addressRegion": "Madrid",
-      "addressCountry": "ES"
-    },
-    "telephone": "+34611754389",
-    "openingHours": "Mo-Su 07:00-23:59",
-    "priceRange": "€",
-    "url": canonicalUrl,
-    "serviceArea": {
-      "@type": "AdministrativeArea",
-      "name": "Tetuán, Madrid"
-    }
-  })}
-</script>
+<script type="application/ld+json" is:inline set:html={schemaData}></script>
 
 
 <link rel="preload" href="/images/logo-cerrajero-tetuan.webp" as="image">
